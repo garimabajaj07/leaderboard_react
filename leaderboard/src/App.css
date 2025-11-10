@@ -1,0 +1,25 @@
+li {
+    text-align: center;
+    list-style: none;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+h1{
+    text-align: center;
+}
+form{
+    text-align: center;
+}
+
+span {
+    margin: 40px;   
+}
+.inc-dec{
+    cursor: pointer;
+}
+input,
+select,
+button {
+    margin: 10px;
+    padding: 5px;
+}

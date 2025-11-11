@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Form from './Form.jsx'
 import List from './List.jsx'
@@ -12,6 +12,10 @@ function App() {
 
   })
   const [data, addData] = useState([])
+  useEffect(() => {
+    sortData()
+  }, [data])
+  console.log(data);
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -23,6 +27,7 @@ function App() {
       score: Number(input.score)
     }
     ])
+
   }
   function handleChange(e) {
     const { name, value } = e.target;
@@ -46,6 +51,7 @@ function App() {
         return obj
       })
     )
+
   }
   function handleDecrease(idToDecrease) {
     addData(
@@ -58,23 +64,30 @@ function App() {
           return { ...obj, score: obj.score - 5 }
 
         }
-        else 
+        else
           return obj
       })
+    )
+
+  }
+  function sortData() {
+    addData(data.sort((a, b) => {
+      return b.score - a.score
+    })
     )
   }
   return (
     <>
-      <Form 
-      input={input} 
-      setInput={setInput} 
-      handleSubmit={handleSubmit} 
-      handleChange={handleChange} />
-      <List 
-      data={data} 
-      handleDelete={handleDelete} 
-      handleIncrease={handleIncrease} 
-      handleDecrease={handleDecrease} />
+      <Form
+        input={input}
+        setInput={setInput}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange} />
+      <List
+        data={data}
+        handleDelete={handleDelete}
+        handleIncrease={handleIncrease}
+        handleDecrease={handleDecrease} />
     </>
   )
 }

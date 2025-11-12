@@ -12,10 +12,16 @@ function App() {
 
   })
   const [data, addData] = useState([])
+  const [sortedData, setSortedData] = useState([])
+
   useEffect(() => {
-    sortData()
-  }, [data])
-  console.log(data);
+    const temp = [...data]
+    //  only update sortedData, not data itself
+    setSortedData(temp.sort((a, b) => {
+      return b.score - a.score
+    }))
+
+  }, [data])  // runs every time data changes
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -26,7 +32,8 @@ function App() {
       country: input.country,
       score: Number(input.score)
     }
-    ])
+    ]
+    )
 
   }
   function handleChange(e) {
@@ -70,12 +77,7 @@ function App() {
     )
 
   }
-  function sortData() {
-    addData(data.sort((a, b) => {
-      return b.score - a.score
-    })
-    )
-  }
+
   return (
     <>
       <Form
@@ -84,7 +86,7 @@ function App() {
         handleSubmit={handleSubmit}
         handleChange={handleChange} />
       <List
-        data={data}
+        data={sortedData} //for display//
         handleDelete={handleDelete}
         handleIncrease={handleIncrease}
         handleDecrease={handleDecrease} />
